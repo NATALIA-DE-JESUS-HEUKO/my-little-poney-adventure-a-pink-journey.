@@ -102,32 +102,41 @@
         ponyImageDiv.style.backgroundSize = "cover";
         ponyImageDiv.style.backgroundPosition = "center";
 
-
         function makeChoice(choice) {
+            let endMessage = "";
+            let showRestartButton = true; // Flag para mostrar o botão de reiniciar
+
             if (choice === 'explore') {
                 storyText.innerHTML = "Você adentra a floresta. O ar fica mais fresco e você ouve um canto suave. Parece vir de uma clareira à frente. O que você faz?";
                 choicesDiv.innerHTML = `
                     <button onclick="makeChoice('follow_sound')">Seguir o som</button>
                     <button onclick="makeChoice('return')">Voltar para casa</button>
                 `;
+                showRestartButton = false; // Não mostra o botão de reiniciar aqui, pois a aventura continua
             } else if (choice === 'friends') {
                 storyText.innerHTML = "Você chama seus amigos pôneis, e juntos vocês decidem ir à floresta. A aventura é sempre melhor com amigos! Vocês encontram um rio cintilante. O que vocês fazem?";
                 choicesDiv.innerHTML = `
                     <button onclick="makeChoice('cross_river')">Atravessar o rio</button>
                     <button onclick="makeChoice('play_by_river')">Brincar na margem</button>
                 `;
+                showRestartButton = false; // Não mostra o botão de reiniciar aqui, pois a aventura continua
             } else if (choice === 'follow_sound') {
-                storyText.innerHTML = "Você segue o canto e encontra uma fada pônei que precisa de ajuda para encontrar sua joia perdida. Fim da primeira parte da aventura! Parabéns!";
-                choicesDiv.innerHTML = "<p>A aventura terminou por enquanto! Recarregue a página para jogar novamente.</p>";
+                endMessage = "Você segue o canto e encontra uma fada pônei que precisa de ajuda para encontrar sua joia perdida. Fim da primeira parte da aventura! Parabéns!";
             } else if (choice === 'return') {
-                storyText.innerHTML = "Você decide que a floresta é muito assustadora hoje e volta para casa. Talvez amanhã seja um dia melhor para aventuras. Fim da aventura.";
-                choicesDiv.innerHTML = "<p>A aventura terminou por enquanto! Recarregue a página para jogar novamente.</p>";
+                endMessage = "Você decide que a floresta é muito assustadora hoje e volta para casa. Talvez amanhã seja um dia melhor para aventuras. Fim da aventura.";
             } else if (choice === 'cross_river') {
-                storyText.innerHTML = "Vocês atravessam o rio com cuidado e encontram um campo cheio de flores mágicas. Que lindo! Fim da primeira parte da aventura! Parabéns!";
-                choicesDiv.innerHTML = "<p>A aventura terminou por enquanto! Recarregue a página para jogar novamente.</p>";
+                endMessage = "Vocês atravessam o rio com cuidado e encontram um campo cheio de flores mágicas. Que lindo! Fim da primeira parte da aventura! Parabéns!";
             } else if (choice === 'play_by_river') {
-                storyText.innerHTML = "Vocês brincam na margem do rio, jogando pedrinhas e rindo. O dia passa voando. Fim da aventura.";
-                choicesDiv.innerHTML = "<p>A aventura terminou por enquanto! Recarregue a página para jogar novamente.</p>";
+                endMessage = "Vocês brincam na margem do rio, jogando pedrinhas e rindo. O dia passa voando. Fim da aventura.";
+            }
+
+            // Se for um final, atualiza o texto e mostra o botão de reiniciar
+            if (endMessage !== "") {
+                storyText.innerHTML = endMessage;
+                choicesDiv.innerHTML = `
+                    <p>A aventura terminou por enquanto!</p>
+                    <button onclick="location.reload()">Recomeçar Aventura!</button>
+                `;
             }
         }
     </script>
